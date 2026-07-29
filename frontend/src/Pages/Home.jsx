@@ -49,17 +49,25 @@ const Home = () => {
             <option value="Tablet">Tablet</option>
             <option value="Laptops">Laptops</option>
           </select>
+        </div>
 
-          {/* Product Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-            {products.map((product) => (
-              <Link
-                key={product._id}
-                to={`/products/${product._id}`}
-                className="border p-3 rounded shadow hover:shadow-lg transition"
-              ></Link>
-            ))}
-          </div>
+        {/* Product Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          {products.map((product) => (
+            <div
+              key={product._id}
+              className="border p-3 rounded shadow hover:shadow-lg transition"
+            >
+              <Link to={`/product/${product._id}`}>
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  className="w-full h-40 object-contain bg-white rounded"
+                />
+                <h2 className="mt-2 font-semibold text-lg">{product.title}</h2>
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </>
