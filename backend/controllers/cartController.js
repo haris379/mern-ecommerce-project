@@ -40,6 +40,10 @@ export const removeItem = async (req, res) => {
 
     cart.items = cart.items.filter((i) => i.productId.toString() !== productId);
 
+    if (cart.items.length === 0) {
+      await Cart.findByIdAndDelete(cart._id);
+      return res.json({ message: "Cart deleted" });
+    }
     await cart.save();
     res.json({
       message: "Item removed from cart",
@@ -65,11 +69,16 @@ export const updateQuantity = async (req, res) => {
     if (!item) {
       return res.status(404).json({ message: "item not found" });
     }
+    if (quantity < 1) {
+      return res.status(400).json({
+        message: "Quantity must be at least 1",
+      });
+    }
     item.quantity = quantity;
 
     await cart.save();
     res.json({
-      message: "Item removed from cart",
+      message: "Quantity updated successfully",
       cart,
     });
   } catch (error) {
@@ -82,6 +91,11 @@ export const getCart = async (req, res) => {
   try {
     const { userId } = req.params;
     const cart = await Cart.findOne({ userId }).populate("items.productId");
+    if (!cart) {
+      return res.status(404).json({
+        message: "Cart not found",
+      });
+    }
     res.json(cart);
   } catch (error) {
     res.status(500).json({ message: "Server Error", error });
