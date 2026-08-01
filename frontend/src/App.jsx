@@ -19,5 +19,10 @@ const routerPath = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={routerPath} />;
+  return (
+    <>
+      {" "}
+      <RouterProvider router={routerPath} />;
+    </>
+  );
 }
