@@ -22,6 +22,24 @@ const Home = () => {
     loadProducts();
   }, [search, category]);
 
+  const addToCart = async (productId) => {
+    try {
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        alert("Please Login to Continue");
+        return;
+      }
+      const response = await api.post("/cart/add", { userId, productId });
+      const total = response.data.cart.items.reduce((sum, item) => {
+        return sum + item.productId.price * item.quantity;
+      }, 0);
+      localStorage.setItem("cartCount", total);
+      window.dispatchEvent(new Event("cartUpdated"));
+    } catch (error) {
+      console.error("Error adding product", error);
+    }
+  };
+
   return (
     <>
       <div className="p-6">
@@ -66,6 +84,17 @@ const Home = () => {
                 />
                 <h2 className="mt-2 font-semibold text-lg">{product.title}</h2>
               </Link>
+              <div className="mt-2 flex items-center justify-between">
+                <p className="text-gray-700" font-semibold>
+                  {product.price}
+                </p>
+                <button
+                  onClick={() => addToCart(product._id)}
+                  className="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 transition"
+                >
+                  Add
+                </button>
+              </div>
             </div>
           ))}
         </div>

@@ -15,6 +15,8 @@ const Navbar = () => {
       const total = response.data.items.reduce((sum, item) => {
         return sum + item.quantity;
       }, 0);
+      console.log("Cart Count:", total);
+
       setCartCount(total);
     };
     loadCart();
@@ -38,7 +40,7 @@ const Navbar = () => {
           Haris Store
         </Link>
         <div className="flex gap-4 items-center">
-          <Link to="/cart" className="relativet text-xl">
+          <Link to="/cart" className="relative text-xl">
             🛒
             {cartCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-1 rounded">

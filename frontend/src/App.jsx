@@ -7,6 +7,7 @@ import ProductList from "./admin/ProductList";
 import AddPrduct from "./admin/AddPrduct";
 import EditProduct from "./admin/EditProduct";
 import Navbar from "./components/Navbar";
+import Cart from "./Pages/Cart";
 
 function Layout() {
   return (
@@ -25,6 +26,7 @@ const routerPath = createBrowserRouter([
       { path: "/signup", element: <Signup /> },
       { path: "/login", element: <Login /> },
       { path: "/product/:id", element: <ProductDetails /> },
+      { path: "/cart", element: <Cart /> },
 
       { path: "/admin/products", element: <ProductList /> },
       { path: "/admin/products/add", element: <AddPrduct /> },
