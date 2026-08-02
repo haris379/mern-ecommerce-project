@@ -15,8 +15,7 @@ const Navbar = () => {
       const total = response.data.items.reduce((sum, item) => {
         return sum + item.quantity;
       }, 0);
-      console.log("Cart Count:", total);
-
+      
       setCartCount(total);
     };
     loadCart();
