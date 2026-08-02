@@ -24,6 +24,8 @@ const Login = () => {
 
       // Save token to Local Storage
       localStorage.setItem("token", respone.data.token);
+      localStorage.setItem("userId", respone.data.user.id);
+
       setMsg("Login Successful");
 
       // Redirect to Home
