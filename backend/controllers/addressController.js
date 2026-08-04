@@ -26,10 +26,12 @@ export const getAddress = async (req, res) => {
       userId: req.params.userId,
     });
 
-    res.status(200).json({
-      success: true,
-      addresses,
-    });
+    // res.status(200).json({
+    //   success: true,
+    //   addresses,
+    // });
+    
+    res.json(addresses);
   } catch (error) {
     res.status(500).json({
       success: false,

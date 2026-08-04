@@ -15,14 +15,27 @@ const Checkout = () => {
       setSelectedAddress(res.data[0]);
     });
   }, []);
+//   useEffect(() => {
+//   if (!userId) return;
+
+//   api.get(`/address/${userId}`).then((res) => {
+//     console.log("Response:", res);
+//     console.log("Data:", res.data);
+//     console.log(JSON.stringify(res.data, null, 2));
+//     console.log("Is Array:", Array.isArray(res.data));
+
+//     setAddress(res.data);
+//     setSelectedAddress(res.data[0]);
+//   });
+// }, []);
 
   if (!cart) {
     return <div>Loading...</div>;
   }
-  const total = cart.items.reduce(
-    (sum, item) => sum + item.productId.price * item.price,
-    0,
-  );
+
+  const total = cart.items.reduce((sum , item)=>{
+    return sum + item.productId.price * item.price
+  },0)
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -31,7 +44,7 @@ const Checkout = () => {
       <h2 className="font-semibold mb-2">Select Delivery Address</h2>
 
       <div className="space-y-3">
-        {addresses.map((addr) => (
+        {address.map((addr) => (
           <label
             key={addr._id}
             className="block border p-3 rounded cursor-pointer"
