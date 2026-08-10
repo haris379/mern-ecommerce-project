@@ -16,14 +16,14 @@ const Checkout = () => {
     });
   }, []);
 
-
   if (!cart) {
     return <div>Loading...</div>;
   }
 
-  const total = cart.items.reduce((sum , item)=>{
-    return sum + item.productId.price * item.price
-  },0)
+  const total = cart.items.reduce(
+    (sum, item) => sum + item.productId.price * item.quantity,
+    0,
+  );
 
   return (
     <div className="max-w-4xl mx-auto p-6">
