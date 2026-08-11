@@ -6,6 +6,7 @@ import authRoute from "./Routes/authRoute.js";
 import productRoutes from "./Routes/productRoutes.js";
 import cartRoutes from "./Routes/cartRoutes.js";
 import addressRoutes from "./Routes/addressRoutes.js";
+import orderRoutes from "./Routes/orderRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -16,6 +17,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/address", addressRoutes);
+app.use("/api/order", orderRoutes);
 
 // app.get("/", (req, res) => {
 //   res.send("api is running");
