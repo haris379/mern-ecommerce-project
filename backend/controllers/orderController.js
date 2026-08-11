@@ -25,8 +25,6 @@ export const placeOrder = async (req, res) => {
       return total + item.quantity * item.price;
     }, 0);
 
-    console.log("Order Items:", orderItems);
-    console.log("Total Amount:", totalAmount);
 
     for (const item of cart.items) {
       await Product.findByIdAndUpdate(item.productId._id, {

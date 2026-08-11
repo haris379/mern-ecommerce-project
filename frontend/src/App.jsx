@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar";
 import Cart from "./Pages/Cart";
 import CheckoutAddress from "./Pages/CheckoutAddress";
 import Checkout from "./Pages/Checkout";
+import OrderSuccess from "./Pages/OrderSuccess";
 
 function Layout() {
   return (
@@ -35,6 +36,7 @@ const routerPath = createBrowserRouter([
       { path: "/admin/products/update/:id", element: <EditProduct /> },
       { path: "/checkout-address", element: <CheckoutAddress /> },
       { path: "/checkout", element: <Checkout /> },
+      { path: "/order-success/:id", element: <OrderSuccess /> },
     ],
   },
 ]);

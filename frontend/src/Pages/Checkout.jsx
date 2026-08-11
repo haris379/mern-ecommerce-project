@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
 import api from "../api/axios.js";
+import { useNavigate } from "react-router";
 
 const Checkout = () => {
   const userId = localStorage.getItem("userId");
   const [address, setAddress] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [cart, setCart] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!userId) return;
+    if (!userId) {
+      navigate("/");
+      return;
+    }
     api.get(`/cart/${userId}`).then((res) => setCart(res.data));
     api.get(`/address/${userId}`).then((res) => {
       setAddress(res.data);
@@ -24,7 +29,19 @@ const Checkout = () => {
     (sum, item) => sum + item.productId.price * item.quantity,
     0,
   );
+  const placeOrder = async () => {
+    if (!selectedAddress) {
+      alert("Please select address");
+      return;
+    }
 
+    const res = await api.post("/order/place", {
+      userId,
+      address: selectedAddress,
+    });
+
+    navigate(`/order-success/${res.data.orderId}`);
+  };
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4">Checkout</h1>
@@ -56,7 +73,7 @@ const Checkout = () => {
       <p className="text-lg font-bold">Total: Rs.{total}</p>
 
       <button
-        // onClick={placeOrder}
+        onClick={placeOrder}
         className="mt-6 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
       >
         Place Order (COD)
