@@ -26,6 +26,23 @@ const productDetails = () => {
   if (!product) {
     return <div>Loading.....</div>;
   }
+  const addToCart = async (productId) => {
+    try {
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        alert("Please Login to Continue");
+        return;
+      }
+      const response = await api.post("/cart/add", { userId, productId });
+      const total = response.data.cart.items.reduce((sum, item) => {
+        return sum + item.productId.price * item.quantity;
+      }, 0);
+      localStorage.setItem("cartCount", total);
+      window.dispatchEvent(new Event("cartUpdated"));
+    } catch (error) {
+      console.error("Error adding product", error);
+    }
+  };
 
   return (
     <>
@@ -52,7 +69,10 @@ const productDetails = () => {
               Rs. {product.price}
             </p>
 
-            <button className="btn-primary w-full md:w-auto mt-6 px-8 py-3">
+            <button
+              onClick={() => addToCart(product._id)}
+              className="btn-primary w-full md:w-auto mt-6 px-8 py-3"
+            >
               Add to Cart
             </button>
           </div>
