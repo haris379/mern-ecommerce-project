@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useId, use } from "react";
 import api from "../api/axios.js";
 import { useNavigate } from "react-router";
 
@@ -7,6 +7,8 @@ const Checkout = () => {
   const [address, setAddress] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [cart, setCart] = useState(null);
+  const [loadingAddress, setLoadingAddress] = useState(true);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,17 +16,49 @@ const Checkout = () => {
       navigate("/");
       return;
     }
-    api.get(`/cart/${userId}`).then((res) => setCart(res.data));
-    api.get(`/address/${userId}`).then((res) => {
-      setAddress(res.data);
-      setSelectedAddress(res.data[0]);
-    });
-  }, []);
+    const fetchData = async () => {
+      try {
+        const cartResponse = await api.get(`/cart/${userId}`);
+        setCart(cartResponse.data);
 
-  if (!cart) {
-    return <div>Loading...</div>;
+        const addressResponse = await api.get(`/address/${userId}`);
+        setAddress(addressResponse.data);
+        if (addressResponse.data.length > 0) {
+          setSelectedAddress(addressResponse.data[0]);
+        }
+      } catch (error) {
+        console.error("Checkout loading error:", error);
+      } finally {
+        setLoadingAddress(false);
+      }
+    };
+    fetchData();
+  }, [userId, navigate]);
+
+  useEffect(() => {
+    if (!loadingAddress && address.length === 0) {
+      const timer = setTimeout(() => {
+        navigate("/checkout-address");
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [loadingAddress, address.length, navigate]);
+  if (!cart || loadingAddress) {
+    return (
+      <div className="page-shell text-center text-ink-soft">
+        Loading&hellip;
+      </div>
+    );
   }
 
+  if (address.length === 0) {
+    return (
+      <div className="page-shell text-center text-ink-soft">
+        <p>No delivery address found.</p>
+        <p className="mt-2">Redirecting you to add an address...</p>
+      </div>
+    );
+  }
   const total = cart.items.reduce(
     (sum, item) => sum + item.productId.price * item.quantity,
     0,
@@ -42,8 +76,15 @@ const Checkout = () => {
 
     navigate(`/order-success/${res.data.orderId}`);
   };
+  if (address.length === 0) {
+    return (
+      <div className="page-shell text-center text-ink-soft">
+        Loading&hellip;
+      </div>
+    );
+  }
   return (
-     <div className="page-shell max-w-4xl">
+    <div className="page-shell max-w-4xl">
       <p className="eyebrow">Step 2 of 2</p>
       <h1 className="font-display text-2xl font-bold mt-1 mb-6">Checkout</h1>
 
@@ -72,7 +113,8 @@ const Checkout = () => {
                 <div>
                   <strong className="text-ink">{addr.fullName}</strong>
                   <p className="text-sm text-ink-soft mt-0.5">
-                    {addr.addressLine}, {addr.city}, {addr.state} - {addr.pincode}
+                    {addr.addressLine}, {addr.city}, {addr.state} -{" "}
+                    {addr.pincode}
                   </p>
                   <p className="text-sm text-ink-soft">📞 {addr.phone}</p>
                 </div>
