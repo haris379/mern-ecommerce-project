@@ -37,7 +37,6 @@ const Navbar = () => {
       <nav className="sticky top-0 z-50 bg-navy border-b border-navy-line">
         <div className="max-w-7xl mx-auto flex justify-between items-center px-5 py-3.5">
           <Link to="/" className="flex items-center gap-2.5 group">
-           
             <span className="font-display font-bold text-xl text-white tracking-tight">
               Cartify
             </span>
@@ -55,6 +54,18 @@ const Navbar = () => {
                   {cartCount}
                 </span>
               )}
+            </Link>
+            <Link
+              to="/"
+              className="text-sm font-medium text-white/85 hover:text-white transition-colors"
+            >
+              Home
+            </Link>
+            <Link
+              to="/admin"
+              className="text-sm font-medium text-white/85 hover:text-white transition-colors"
+            >
+              Home
             </Link>
             {!userId ? (
               <>
