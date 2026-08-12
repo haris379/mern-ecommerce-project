@@ -52,7 +52,11 @@ const Cart = () => {
   };
 
   if (!cart) {
-    return <div>Loading...</div>;
+    return (
+      <div className="page-shell text-center text-ink-soft">
+        Loading&hellip;
+      </div>
+    );
   }
 
   const total = cart.items.reduce((sum, item) => {
@@ -61,46 +65,50 @@ const Cart = () => {
 
   return (
     <>
-      <div className="max-w-4xl mx-auto p-6">
-        <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
+      <div className="page-shell max-w-4xl">
+        <h1 className="font-display text-2xl font-bold mb-6">Your Cart</h1>
 
         {cart.items.length === 0 ? (
-          <div>Your cart is empty.</div>
+          <div className="card p-10 text-center text-ink-soft">
+            Your cart is empty.
+          </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {cart.items.map((item) => (
               <div
                 key={item.productId._id}
-                className="flex items-center justify-between border rounded p-4"
+                className="card p-4 flex flex-wrap items-center justify-between gap-4"
               >
                 <div className="flex items-center gap-4">
                   <img
                     src={item.productId.image}
                     alt={item.productId.title}
-                    className="w-16 h-16 object-cover rounded"
+                    className="w-16 h-16 object-cover rounded-md bg-paper"
                   />
                   <div>
-                    <h2 className="text-lg font-semibold">
+                    <h2 className="font-semibold text-ink">
                       {item.productId.title}
                     </h2>
-                    <p className="text-gray-600">
-                      {item.productId.price.toFixed(2)}
+                    <p className="price-mono text-sm text-ink-soft">
+                      Rs. {item.productId.price.toFixed(2)}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3 border border-line rounded-lg px-1">
                   <button
-                    className="px-2 py-1 bg-gray-200 rounded"
+                    className="w-7 h-7 flex items-center justify-center text-ink-soft hover:text-navy transition-colors"
                     onClick={() => {
                       updateQuantity(item.productId._id, item.quantity - 1);
                     }}
                   >
-                    -
+                    &minus;
                   </button>
-                  <span>{item.quantity}</span>
+                  <span className="price-mono text-sm w-4 text-center">
+                    {item.quantity}
+                  </span>
                   <button
-                    className="px-2 py-1 bg-gray-200 rounded"
+                    className="w-7 h-7 flex items-center justify-center text-ink-soft hover:text-navy transition-colors"
                     onClick={() => {
                       updateQuantity(item.productId._id, item.quantity + 1);
                     }}
@@ -110,25 +118,28 @@ const Cart = () => {
                 </div>
 
                 <div>
-                  <p className="font-semibold">
-                    ${(item.productId.price * item.quantity).toFixed(2)}
+                  <p className="price-mono font-semibold text-navy">
+                    Rs. {(item.productId.price * item.quantity).toFixed(2)}
                   </p>
                 </div>
                 <button
                   onClick={() => removeItem(item.productId._id)}
-                  className="text-red-500"
+                  className="btn-danger-ghost text-sm"
                 >
                   Remove
                 </button>
               </div>
             ))}
 
-            <div className="text-right mt-4">
-              <h2 className="text-xl font-bold">Total: ${total.toFixed(2)}</h2>
+            <div className="card p-5 flex items-center justify-between mt-2">
+              <span className="text-ink-soft">Order total</span>
+              <h2 className="price-mono text-xl font-bold text-navy">
+                Rs. {total.toFixed(2)}
+              </h2>
             </div>
             <button
               onClick={() => navigate("/checkout-address")}
-              className="w-full bg-blue-500 text-white p-2 rounded"
+              className="btn-primary w-full py-3"
             >
               Proceed to Checkout
             </button>
