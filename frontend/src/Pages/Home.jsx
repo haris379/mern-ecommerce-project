@@ -42,16 +42,29 @@ const Home = () => {
 
   return (
     <>
-      <div className="p-6">
-        <div className="mb-4 flex gap-4">
+      {/* Hero strip */}
+      <div className="bg-navy">
+        <div className="page-shell !pt-10 !pb-10">
+          <h1 className="font-display text-3xl md:text-4xl font-bold text-white mt-2 max-w-xl">
+            Tech that keeps up with you.
+          </h1>
+          <p className="text-white/60 mt-2 max-w-md">
+            Browse the current lineup and add what you need &mdash; checkout in
+            a couple of taps.
+          </p>
+        </div>
+      </div>
+
+      <div className="page-shell">
+        <div className="-mt-8 mb-8 card p-4 flex flex-col sm:flex-row gap-3 shadow-sm">
           {/* Search */}
           <input
-            placeholder="Search Products..."
+            placeholder="Search products..."
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
             }}
-            className="border px-3 py-2 rounded w-1/2"
+            className="input-field sm:flex-1"
           />
 
           {/* Category filter */}
@@ -60,9 +73,9 @@ const Home = () => {
             onChange={(e) => {
               setCategory(e.target.value);
             }}
-            className="border px-3 py-2 rounded"
+            className="input-field sm:w-52"
           >
-            <option value="">All Category</option>
+            <option value="">All categories</option>
             <option value="mobiles">Mobiles</option>
             <option value="Tablet">Tablet</option>
             <option value="Laptops">Laptops</option>
@@ -70,34 +83,42 @@ const Home = () => {
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-          {products.map((product) => (
-            <div
-              key={product._id}
-              className="border p-3 rounded shadow hover:shadow-lg transition"
-            >
-              <Link to={`/product/${product._id}`}>
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className="w-full h-40 object-contain bg-white rounded"
-                />
-                <h2 className="mt-2 font-semibold text-lg">{product.title}</h2>
-              </Link>
-              <div className="mt-2 flex items-center justify-between">
-                <p className="text-gray-700" font-semibold>
-                  {product.price}
-                </p>
-                <button
-                  onClick={() => addToCart(product._id)}
-                  className="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 transition"
-                >
-                  Add
-                </button>
+        {products.length === 0 ? (
+          <p className="text-ink-soft text-center py-16">
+            No products match your search yet.
+          </p>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+            {products.map((product) => (
+              <div
+                key={product._id}
+                className="card card-hover chip-notch p-3 flex flex-col"
+              >
+                <Link to={`/product/${product._id}`}>
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    className="w-full h-40 object-contain bg-paper rounded-md"
+                  />
+                  <h2 className="mt-3 font-semibold text-ink leading-snug line-clamp-2">
+                    {product.title}
+                  </h2>
+                </Link>
+                <div className="mt-2 flex items-center justify-between">
+                  <p className="price-mono font-semibold text-navy">
+                    Rs. {product.price}
+                  </p>
+                  <button
+                    onClick={() => addToCart(product._id)}
+                    className="btn-primary text-xs !py-1.5 !px-3"
+                  >
+                    Add
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </>
   );
