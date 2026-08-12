@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/axios.js";
 import { useParams } from "react-router";
+import BackButton from "../components/BackButton.jsx";
 
 const productDetails = () => {
   const { id } = useParams();
@@ -29,6 +30,7 @@ const productDetails = () => {
   return (
     <>
       <div className="page-shell max-w-3xl">
+        <BackButton />
         <div className="grid md:grid-cols-2 gap-8 items-start">
           <div className="card chip-notch p-6 bg-paper">
             <img

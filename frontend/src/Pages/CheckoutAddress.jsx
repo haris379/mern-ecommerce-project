@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import api from "../api/axios.js";
 import { Link, useNavigate } from "react-router";
+import BackButton from "../components/BackButton.jsx";
 
 const CheckoutAddress = () => {
   const userId = localStorage.getItem("userId");
@@ -23,6 +24,12 @@ const CheckoutAddress = () => {
   };
 
   const saveAddress = async () => {
+    const isEmpty = Object.values(form).some((value) => value.trim() === "");
+
+    if (isEmpty) {
+      alert("Please fill in all fields");
+      return;
+    }
     try {
       const response = await api.post("/address/add", {
         ...form,
@@ -35,6 +42,7 @@ const CheckoutAddress = () => {
   };
   return (
     <div className="page-shell max-w-xl">
+      <BackButton />
       <p className="eyebrow">Step 1 of 2</p>
       <h1 className="font-display text-2xl font-bold mt-1 mb-6">
         Delivery Address

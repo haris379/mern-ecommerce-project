@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useId, use } from "react";
 import api from "../api/axios.js";
 import { useNavigate } from "react-router";
+import BackButton from "../components/BackButton.jsx";
 
 const Checkout = () => {
   const userId = localStorage.getItem("userId");
@@ -85,6 +86,7 @@ const Checkout = () => {
   }
   return (
     <div className="page-shell max-w-4xl">
+      <BackButton/>
       <p className="eyebrow">Step 2 of 2</p>
       <h1 className="font-display text-2xl font-bold mt-1 mb-6">Checkout</h1>
 

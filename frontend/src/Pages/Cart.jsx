@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "../api/axios";
 import { useNavigate } from "react-router";
+import BackButton from "../components/BackButton";
 
 const Cart = () => {
   const userId = localStorage.getItem("userId");
@@ -66,6 +67,7 @@ const Cart = () => {
   return (
     <>
       <div className="page-shell max-w-4xl">
+        <BackButton/>
         <h1 className="font-display text-2xl font-bold mb-6">Your Cart</h1>
 
         {cart.items.length === 0 ? (
