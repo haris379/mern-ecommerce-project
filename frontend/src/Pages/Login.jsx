@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import { Link , useNavigate } from "react-router";
 import api from "../api/axios.js";
 
 const Login = () => {
@@ -37,15 +37,16 @@ const Login = () => {
     }
   };
   return (
-    <>
-      <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
-        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
-          <h2 className="text-2xl font-bold mb-6 text-center">
-            Login to Your Account
+     <>
+      <div className="auth-shell">
+        <div className="card chip-notch bg-panel p-8 w-full max-w-sm">
+          <p className="eyebrow text-center">Welcome back</p>
+          <h2 className="font-display text-2xl font-bold mt-1 mb-6 text-center">
+            Log in to Cartify
           </h2>
 
           {msg && (
-            <div className="mb-4 text-center text-sm text-red-600 font-medium">
+            <div className="mb-4 text-center text-sm bg-danger-light text-danger font-medium rounded-md py-2 px-3">
               {msg}
             </div>
           )}
@@ -54,28 +55,32 @@ const Login = () => {
             <input
               name="email"
               type="email"
-              placeholder="Enter Email"
+              placeholder="Enter email"
               value={form.email}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="input-field"
               required
             />
             <input
               name="password"
               type="password"
-              placeholder="Enter Password"
+              placeholder="Enter password"
               value={form.password}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="input-field"
               required
             />
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
-            >
-              Login
+            <button type="submit" className="btn-primary w-full py-2.5">
+              Log in
             </button>
           </form>
+
+          <p className="text-center text-sm text-ink-soft mt-5">
+            New to Cartify?{" "}
+            <Link to="/signup" className="text-volt-dark font-medium hover:underline">
+              Create an account
+            </Link>
+          </p>
         </div>
       </div>
     </>
