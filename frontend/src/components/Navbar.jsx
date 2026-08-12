@@ -61,12 +61,7 @@ const Navbar = () => {
             >
               Home
             </Link>
-            <Link
-              to="/admin"
-              className="text-sm font-medium text-white/85 hover:text-white transition-colors"
-            >
-              Home
-            </Link>
+            
             {!userId ? (
               <>
                 <Link

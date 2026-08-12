@@ -34,27 +34,29 @@ const AddPrduct = () => {
 
   return (
     <>
-      <div className="max-w-lg mx-auto mt-10 bg-white p-6 shadow rounded">
-        <h2 className="text-2xl font-bold mb-6">Add New Product</h2>
-        <form onSubmit={handleSubmit} className="space-y-3">
-          {Object.keys(form).map((key) => (
-            <input
-              key={key}
-              name={key}
-              value={form[key]}
-              onChange={handleChange}
-              //   placeholder={key}
-              placeholder={`Enter ${key.charAt(0).toUpperCase() + key.slice(1)}`}
-              className="w-full p-2 border border-gray-300 rounded"
-            />
-          ))}
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-          >
-            Add Product
-          </button>
-        </form>
+      <div className="page-shell max-w-lg">
+        <p className="eyebrow">Admin</p>
+        <h2 className="font-display text-2xl font-bold mt-1 mb-6">
+          Add New Product
+        </h2>
+        <div className="card chip-notch p-6">
+          <form onSubmit={handleSubmit} className="space-y-3">
+            {Object.keys(form).map((key) => (
+              <input
+                key={key}
+                name={key}
+                value={form[key]}
+                onChange={handleChange}
+                //   placeholder={key}
+                placeholder={`Enter ${key.charAt(0).toUpperCase() + key.slice(1)}`}
+                className="input-field"
+              />
+            ))}
+            <button type="submit" className="btn-primary w-full py-2.5 mt-5">
+              Add Product
+            </button>
+          </form>
+        </div>
       </div>
     </>
   );
