@@ -44,7 +44,7 @@ const Home = () => {
     <>
       {/* Hero strip */}
       <div className="bg-navy">
-        <div className="page-shell !pt-10 !pb-10">
+        <div className="page-shell pt-10 pb-10">
           <h1 className="font-display text-3xl md:text-4xl font-bold text-white mt-2 max-w-xl">
             Tech that keeps up with you.
           </h1>
@@ -110,7 +110,7 @@ const Home = () => {
                   </p>
                   <button
                     onClick={() => addToCart(product._id)}
-                    className="btn-primary text-xs !py-1.5 !px-3"
+                    className="btn-primary text-xs py-1.5 px-3"
                   >
                     Add
                   </button>
