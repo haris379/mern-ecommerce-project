@@ -1,5 +1,6 @@
-import React , {useState} from "react";
+import React, { useState } from "react";
 import api from "../api/axios.js";
+import { Link } from "react-router";
 
 const Signup = () => {
   const [form, setForm] = useState({
@@ -27,14 +28,15 @@ const Signup = () => {
 
   return (
     <>
-      <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
-        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
-          <h2 className="text-2xl font-bold mb-6 text-center">
-            Create Account
+      <div className="auth-shell">
+        <div className="card chip-notch bg-panel p-8 w-full max-w-sm">
+          <p className="eyebrow text-center">Get started</p>
+          <h2 className="font-display text-2xl font-bold mt-1 mb-6 text-center">
+            Create your account
           </h2>
 
           {msg && (
-            <div className="bg-red-100 text-red-700 p-3 rounded mb-4 text-center">
+            <div className="bg-danger-light text-danger p-3 rounded-md mb-4 text-center text-sm font-medium">
               {msg}
             </div>
           )}
@@ -42,37 +44,44 @@ const Signup = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
               name="name"
-              placeholder="Enter Name"
+              placeholder="Enter name"
               value={form.name}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="input-field"
               required
             />
             <input
               name="email"
               type="email"
-              placeholder="Enter Email"
+              placeholder="Enter email"
               value={form.email}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="input-field"
               required
             />
             <input
               name="password"
               type="password"
-              placeholder="Enter Password"
+              placeholder="Enter password"
               value={form.password}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="input-field"
               required
             />
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
-            >
-              Sign Up
+            <button type="submit" className="btn-primary w-full py-2.5">
+              Sign up
             </button>
           </form>
+
+          <p className="text-center text-sm text-ink-soft mt-5">
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              className="text-volt-dark font-medium hover:underline"
+            >
+              Log in
+            </Link>
+          </p>
         </div>
       </div>
     </>
