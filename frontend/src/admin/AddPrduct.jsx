@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import api from "../api/axios.js";
+import BackButton from "../components/BackButton";
 
 const AddPrduct = () => {
   const [form, setForm] = useState({
@@ -35,6 +36,7 @@ const AddPrduct = () => {
   return (
     <>
       <div className="page-shell max-w-lg">
+        <BackButton />
         <p className="eyebrow">Admin</p>
         <h2 className="font-display text-2xl font-bold mt-1 mb-6">
           Add New Product
@@ -47,7 +49,6 @@ const AddPrduct = () => {
                 name={key}
                 value={form[key]}
                 onChange={handleChange}
-                //   placeholder={key}
                 placeholder={`Enter ${key.charAt(0).toUpperCase() + key.slice(1)}`}
                 className="input-field"
               />

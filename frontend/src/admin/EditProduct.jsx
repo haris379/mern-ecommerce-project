@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "../api/axios";
 import { useNavigate, useParams } from "react-router";
+import BackButton from "../components/BackButton";
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -56,26 +57,32 @@ const EditProduct = () => {
 
   return (
     <>
-      <div className="max-w-lg mx-auto mt-10 bg-white p-6 shadow rounded">
-        <h2 className="text-xl font-bold mb-4">Edit Product</h2>
+      <div className="page-shell max-w-lg">
+        <BackButton />
+        <p className="eyebrow">Admin</p>
+        <h2 className="font-display text-2xl font-bold mt-1 mb-6">
+          Edit Product
+        </h2>
 
-        <form className="space-y-3" onSubmit={handleSubmit}>
-          {allowedFields.map((key) => (
-            <input
-              key={key}
-              name={key}
-              // value={form[key]}
-              value={form[key]}
-              onChange={handleChange}
-              placeholder={key}
-              className="w-full border px-3 py-2 rounded"
-            />
-          ))}
+        <div className="card chip-notch p-6">
+          <form className="space-y-3" onSubmit={handleSubmit}>
+            {allowedFields.map((key) => (
+              <input
+                key={key}
+                name={key}
+                // value={form[key]}
+                value={form[key]}
+                onChange={handleChange}
+                placeholder={key}
+                className="input-field"
+              />
+            ))}
 
-          <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
-            Update Product
-          </button>
-        </form>
+            <button className="btn-primary w-full py-2.5 mt-5">
+              Update Product
+            </button>
+          </form>
+        </div>
       </div>
     </>
   );
