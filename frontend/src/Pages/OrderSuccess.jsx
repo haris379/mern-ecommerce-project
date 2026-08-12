@@ -21,7 +21,7 @@ const OrderSuccess = () => {
           <span className="price-mono font-semibold text-ink">{id}</span>
         </p>
 
-        <button onClick={goHome} className="btn-primary mt-7 !px-8">
+        <button onClick={goHome} className="btn-primary mt-7 px-8">
           Continue Shopping
         </button>
       </div>
