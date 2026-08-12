@@ -42,39 +42,7 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Sell */}
-        <div>
-          <h3 className="text-white text-sm font-semibold mb-3">Sell</h3>
-          <ul className="space-y-2 text-sm">
-            {role === "seller" || role === "admin" ? (
-              <li>
-                <Link
-                  to="/admin/products"
-                  className="text-white/60 hover:text-white transition-colors"
-                >
-                  Seller Dashboard
-                </Link>
-              </li>
-            ) : (
-              <li>
-                <Link
-                  to="/signup"
-                  className="text-white/60 hover:text-white transition-colors"
-                >
-                  Become a Seller
-                </Link>
-              </li>
-            )}
-            <li>
-              <Link
-                to="/login"
-                className="text-white/60 hover:text-white transition-colors"
-              >
-                Seller Login
-              </Link>
-            </li>
-          </ul>
-        </div>
+      
 
         {/* Account */}
         <div>

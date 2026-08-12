@@ -60,7 +60,7 @@ const Home = () => {
       <div className="bg-navy">
         <div className="page-shell pt-10 pb-10">
           <h1 className="font-display text-3xl md:text-4xl font-bold text-white mt-2 max-w-xl">
-            Tech that keeps up with you.
+            Everything You Need, All in One Place.{" "}
           </h1>
           <p className="text-white/60 mt-2 max-w-md">
             Browse the current lineup and add what you need &mdash; checkout in

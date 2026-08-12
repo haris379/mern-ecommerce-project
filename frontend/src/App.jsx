@@ -17,7 +17,7 @@ function Layout() {
   return (
     <>
       <Navbar />
-      <div className="min-h-[80vh]">
+      <div className="min-h-[70vh]">
         <Outlet />
       </div>
       <Footer />
