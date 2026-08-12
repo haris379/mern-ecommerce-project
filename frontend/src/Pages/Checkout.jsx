@@ -43,40 +43,54 @@ const Checkout = () => {
     navigate(`/order-success/${res.data.orderId}`);
   };
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Checkout</h1>
+     <div className="page-shell max-w-4xl">
+      <p className="eyebrow">Step 2 of 2</p>
+      <h1 className="font-display text-2xl font-bold mt-1 mb-6">Checkout</h1>
 
-      <h2 className="font-semibold mb-2">Select Delivery Address</h2>
+      <h2 className="font-semibold text-ink-soft text-sm uppercase tracking-wide mb-3">
+        Select delivery address
+      </h2>
 
       <div className="space-y-3">
-        {address.map((addr) => (
-          <label
-            key={addr._id}
-            className="block border p-3 rounded cursor-pointer"
-          >
-            <input
-              type="radio"
-              name="address"
-              checked={selectedAddress?._id === addr._id}
-              onChange={() => setSelectedAddress(addr)}
-              className="mr-2"
-            />
-            <strong>{addr.fullName}</strong>
-            <p className="text-sm">
-              {addr.addressLine}, {addr.city}, {addr.state} - {addr.pincode}
-            </p>
-            <p className="text-sm">📞 {addr.phone}</p>
-          </label>
-        ))}
+        {address.map((addr) => {
+          const isSelected = selectedAddress?._id === addr._id;
+          return (
+            <label
+              key={addr._id}
+              className={`block card p-4 cursor-pointer transition-colors ${
+                isSelected ? "border-navy" : ""
+              }`}
+            >
+              <div className="flex items-start gap-3">
+                <input
+                  type="radio"
+                  name="address"
+                  checked={isSelected}
+                  onChange={() => setSelectedAddress(addr)}
+                  className="mt-1 accent-volt"
+                />
+                <div>
+                  <strong className="text-ink">{addr.fullName}</strong>
+                  <p className="text-sm text-ink-soft mt-0.5">
+                    {addr.addressLine}, {addr.city}, {addr.state} - {addr.pincode}
+                  </p>
+                  <p className="text-sm text-ink-soft">📞 {addr.phone}</p>
+                </div>
+              </div>
+            </label>
+          );
+        })}
       </div>
-      <h2 className="font-semibold mt-6 mb-2">Order Summary</h2>
-      <p className="text-lg font-bold">Total: Rs.{total}</p>
 
-      <button
-        onClick={placeOrder}
-        className="mt-6 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
-      >
-        Place Order (COD)
+      <div className="card chip-notch p-5 mt-6 flex items-center justify-between">
+        <h2 className="font-semibold text-ink-soft text-sm uppercase tracking-wide">
+          Order total
+        </h2>
+        <p className="price-mono text-xl font-bold text-navy">Rs. {total}</p>
+      </div>
+
+      <button onClick={placeOrder} className="btn-primary w-full py-3 mt-6">
+        Place Order &middot; Cash on Delivery
       </button>
     </div>
   );

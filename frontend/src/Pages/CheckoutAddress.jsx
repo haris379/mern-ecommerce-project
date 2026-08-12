@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import api from "../api/axios.js";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const CheckoutAddress = () => {
   const userId = localStorage.getItem("userId");
@@ -34,23 +34,37 @@ const CheckoutAddress = () => {
     }
   };
   return (
-    <div className="max-w-xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Delivery Address</h1>
-      {Object.keys(form).map((key) => (
-        <input
-          key={key}
-          name={key}
-          placeholder={`Enter ${key.charAt(0).toUpperCase() + key.slice(1)}`}
-          onChange={handleChange}
-          className="w-full p-2 border border-gray-300 rounded mb-4"
-        />
-      ))}
-      <button
-        onClick={saveAddress}
-        className="w-full bg-blue-500 text-white p-2 rounded"
-      >
-        Save Address
-      </button>
+    <div className="page-shell max-w-xl">
+      <p className="eyebrow">Step 1 of 2</p>
+      <h1 className="font-display text-2xl font-bold mt-1 mb-6">
+        Delivery Address
+      </h1>
+      <div className="card chip-notch p-6">
+        <div className="space-y-4">
+          {Object.keys(form).map((key) => (
+            <input
+              key={key}
+              name={key}
+              placeholder={`Enter ${key.charAt(0).toUpperCase() + key.slice(1)}`}
+              onChange={handleChange}
+              className="input-field"
+            />
+          ))}
+        </div>
+
+        <button onClick={saveAddress} className="btn-primary w-full py-3 mt-6">
+          Save &amp; Continue
+        </button>
+        <p className="text-center text-sm text-ink-soft mt-5">
+          Already have address?{" "}
+          <Link
+            to="/checkout"
+            className="text-volt-dark font-medium hover:underline"
+          >
+            Proceed
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };
