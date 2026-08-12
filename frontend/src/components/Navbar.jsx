@@ -15,7 +15,7 @@ const Navbar = () => {
       const total = response.data.items.reduce((sum, item) => {
         return sum + item.quantity;
       }, 0);
-      
+
       setCartCount(total);
     };
     loadCart();
@@ -34,41 +34,49 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="flex justify-between p-4 shadow bg-black text-white">
-        <Link to="/" className="font-bold text-xl">
-          Haris Store
-        </Link>
-        <div className="flex gap-4 items-center">
-          <Link to="/cart" className="relative text-xl">
-            🛒
-            {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-1 rounded">
-                {cartCount}
-              </span>
-            )}
+      <nav className="sticky top-0 z-50 bg-navy border-b border-navy-line">
+        <div className="max-w-7xl mx-auto flex justify-between items-center px-5 py-3.5">
+          <Link to="/" className="flex items-center gap-2.5 group">
+           
+            <span className="font-display font-bold text-xl text-white tracking-tight">
+              Cartify
+            </span>
           </Link>
-          {!userId ? (
-            <>
-              <Link
-                to="/login"
-                className="
-                text-lg"
+
+          <div className="flex gap-5 items-center">
+            <Link
+              to="/cart"
+              className="relative text-xl text-white/85 hover:text-white transition-colors"
+              aria-label="Cart"
+            >
+              🛒
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2.5 bg-volt text-white text-[0.65rem] font-mono font-semibold min-w-[1.1rem] h-[1.1rem] flex items-center justify-center rounded-full px-1">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+            {!userId ? (
+              <>
+                <Link
+                  to="/login"
+                  className="text-sm font-medium text-white/85 hover:text-white transition-colors"
+                >
+                  Login
+                </Link>
+                <Link to="/signup" className="btn-primary text-sm !py-2 !px-4">
+                  Sign up
+                </Link>
+              </>
+            ) : (
+              <button
+                onClick={logout}
+                className="text-sm font-medium text-white/85 hover:text-white transition-colors"
               >
-                Login
-              </Link>
-              <Link
-                to="/signup"
-                className="
-                text-lg"
-              >
-                Signup
-              </Link>
-            </>
-          ) : (
-            <button onClick={logout} className="text-lg">
-              Logout
-            </button>
-          )}
+                Logout
+              </button>
+            )}
+          </div>
         </div>
       </nav>
     </>
