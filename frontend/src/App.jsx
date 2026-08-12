@@ -11,12 +11,16 @@ import Cart from "./Pages/Cart";
 import CheckoutAddress from "./Pages/CheckoutAddress";
 import Checkout from "./Pages/Checkout";
 import OrderSuccess from "./Pages/OrderSuccess";
+import Footer from "./components/Footer";
 
 function Layout() {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <div className="min-h-[80vh]">
+        <Outlet />
+      </div>
+      <Footer />
     </>
   );
 }
@@ -34,7 +38,7 @@ const routerPath = createBrowserRouter([
       { path: "/admin/products", element: <ProductList /> },
       { path: "/admin/products/add", element: <AddPrduct /> },
       { path: "/admin/products/update/:id", element: <EditProduct /> },
-      
+
       { path: "/checkout-address", element: <CheckoutAddress /> },
       { path: "/checkout", element: <Checkout /> },
       { path: "/order-success/:id", element: <OrderSuccess /> },
