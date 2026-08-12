@@ -6,6 +6,7 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([]);
 
   const loadProducts = async () => {
     try {
@@ -17,6 +18,19 @@ const Home = () => {
       console.error("Error getting products", error);
     }
   };
+
+  const loadCategories = async () => {
+    try {
+      const response = await api.get("/products/categories");
+      setCategories(response.data);
+    } catch (error) {
+      console.error("Error getting categories", error);
+    }
+  };
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
 
   useEffect(() => {
     loadProducts();
@@ -76,9 +90,11 @@ const Home = () => {
             className="input-field sm:w-52"
           >
             <option value="">All categories</option>
-            <option value="mobiles">Mobiles</option>
-            <option value="Tablet">Tablet</option>
-            <option value="Laptops">Laptops</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
           </select>
         </div>
 
